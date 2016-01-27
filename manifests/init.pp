@@ -12,9 +12,6 @@
 # To more advanced usage of the midonet puppet module, check out the
 # documentation for the midonet's modules:
 #
-# - midonet::repository
-# - midonet::cassandra
-# - midonet::zookeeper
 # - midonet::midonet_agent
 # - midonet::midonet_api
 # - midonet::midonet_cli
@@ -39,30 +36,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+
 class midonet {
 
-    # Add zookeeper
-    class {'::midonet::zookeeper': }
+# Add midonet-cluster
+  class { '::midonet::midonet-cluster': }
 
-    # Add cassandra
-    class {'::midonet::cassandra': }
+# Add midonet-agent
+  class { 'midonet::midonet_agent':
+    zk_servers => [{
+      'ip' => $::ipaddress
+    }],
+  }
 
-    # Add midonet-agent
-    class { 'midonet::midonet_agent':
-      zk_servers => [{
-          'ip' => $::ipaddress}
-          ],
-      require    => [Class['::midonet::cassandra'], Class['::midonet::zookeeper']]
-    }
-
-    # Add midonet-api
-    class {'midonet::midonet_api':
-      zk_servers =>  [{'ip' => $::ipaddress}]
-    }
-
-    # Add midonet-cli
-    class {'midonet::midonet_cli':}
+# Add midonet-cli
+  class { 'midonet::midonet_cli': }
 
 # TODO(carmela): This workaround has been added in order to be able to handle
 # dependencies on the custom providers. Currently there's no official faraday
@@ -88,13 +76,5 @@ class midonet {
       }
     }
 
-
-    # Register the host
-    midonet_host_registry { $::hostname:
-      ensure          => present,
-      midonet_api_url => 'http://127.0.0.1:8080',
-      username        => 'admin',
-      password        => 'admin',
-      require         => Class['midonet::midonet_agent']
-    }
 }
+

@@ -1,0 +1,32 @@
+# Copyright 2014-15 Midokura SARL
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Midonet configuration file
+
+[zookeeper]
+<%- zkarr = Array.new -%>
+<%- @zk_servers.each do |s| -%>
+  <%- zkarr.push("#{s['ip']}:#{s['port'] ||= 2181 }") -%>
+<%- end -%>
+zookeeper_hosts = <%= zkarr.join(",") %>
+
+[cassandra]
+# The minimum recommended cassandra setup is a 3-node cluster with a
+# replication factor of 3. Midolman uses Quorum as consistency policy, which
+# would translate to 2 in the suggested setup.
+#
+# Refer to the docs/cassandra-cache.md documentation for more specific details
+servers = <%= @cs_seeds.join(",") %>
+# DO CHANGE THIS, recommended value is 3
+cassandra.replication_factor = <%= @cs_repl_factor %>
