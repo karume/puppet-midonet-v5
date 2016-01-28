@@ -3,7 +3,7 @@
 # Install and run midonet_cluster
 
 class midonet::midonet_cluster (
-  $zk_servers = $::midonet::params::zookeeper_servers,
+  $zk_servers      = $::midonet::params::zookeeper_servers,
   $cassandra_seeds = $::midonet::params::cassandra_seeds,
 ) inherits midonet::params {
 

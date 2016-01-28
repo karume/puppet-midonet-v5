@@ -23,8 +23,9 @@
 # limitations under the License.
 #
 class midonet::midonet_agent::run (
-  $zk_servers,
-  $cs_seeds) {
+  $zk_servers = $::midonet::params::zookeeper_servers,
+  $cs_seeds = $::midonet::params::cassandra_seeds,
+) inherits midonet::params {
 
     file {'/etc/midolman/midolman.conf':
         ensure  => present,
@@ -36,3 +37,4 @@ class midonet::midonet_agent::run (
         ensure => running
     }
 }
+

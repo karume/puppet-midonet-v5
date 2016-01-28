@@ -40,7 +40,7 @@
 class midonet {
 
 # Add midonet-cluster
-  class { '::midonet::midonet-cluster': }
+  class { '::midonet::midonet_cluster': }
 
 # Add midonet-agent
   class { 'midonet::midonet_agent':
