@@ -76,7 +76,7 @@ class midonet::neutron_plugin (
     $sync_db           = false
     ) {
 
-    package {'python-neutron-plugin-midonet':
+    package { 'python-networking-midonet':
         ensure  => present,
     } ->
 
