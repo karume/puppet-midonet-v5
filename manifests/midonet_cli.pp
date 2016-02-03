@@ -31,7 +31,7 @@
 # limitations under the License.
 #
 class midonet::midonet_cli(
-  $api_endpoint='http://127.0.0.1:8080/midonet-api',
+  $api_endpoint="http://$::ipaddress_eth0:8181/midonet-api",
   $username='admin',
   $password='admin',
   $tenant_name='admin',

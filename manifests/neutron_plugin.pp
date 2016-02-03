@@ -32,7 +32,7 @@
 #
 #     class {'midonet::neutron_plugin':
 #         midonet_api_ip    => '23.123.5.32',
-#         midonet_api_port  => '8080',
+#         midonet_api_port  => '8181',
 #         keystone_username => 'neutron',
 #         keystone_password => '32kjaxT0k3na',
 #         keystone_tenant   => 'services',
@@ -41,7 +41,7 @@
 #
 # You can alternatively use the Hiera's yaml style:
 #     midonet::neutron_plugin::midonet_api_ip: '23.213.5.32'
-#     midonet::neutron_plugin::port: '8080'
+#     midonet::neutron_plugin::port: '8181'
 #     midonet::neutron_plugin::keystone_username: 'neutron'
 #     midonet::neutron_plugin::keystone_password: '32.kjaxT0k3na'
 #     midonet::neutron_plugin::keystone_tenant: 'services'
@@ -69,7 +69,7 @@
 #
 class midonet::neutron_plugin (
     $midonet_api_ip    = '127.0.0.1',
-    $midonet_api_port  = '8080',
+    $midonet_api_port  = '8181',
     $keystone_username = 'neutron',
     $keystone_password = undef,
     $keystone_tenant   = 'services',

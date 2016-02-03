@@ -10,7 +10,7 @@ class midonet::midonet_cluster::run (
 
   file { '/etc/midonet/midonet.conf':
     ensure  => present,
-    content => template('midonet/midonet-cluster/midonet.conf.erb'),
+    content => template("${module_name}/midonet-cluster/midonet.conf.erb"),
     owner   => 'root',
     group   => 'root',
     require => Package['midonet-cluster'],
